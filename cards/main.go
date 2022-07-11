@@ -3,6 +3,11 @@ package main
 import "fmt"
 
 func main() {
-	var card string = "Ace of Spades"
+
+	// Long Version of Declaration
+	// var card string = "Ace of Spades"
+
+	//Short Version of Declaration
+	card := "Ace of Spades"
 	fmt.Println(card)
 }
