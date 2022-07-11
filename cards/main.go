@@ -18,6 +18,6 @@ func main() {
 
 }
 
-func newCard() int {
-	return 5
+func newCard() string {
+	return "Five of Diamonds"
 }
