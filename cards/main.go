@@ -11,13 +11,20 @@ func main() {
 	//card := "Ace of Spades"
 
 	//Note that := is only for NEW Variables, re-declaration doesnt need it
-	card := newCard()
+	//card := newCard()
 
-	//Code to print line to screen
-	fmt.Println(card)
+	cards := []string{"Ace of Diamonds", newCard()}
+	cards = append(cards, "Six of Spades")
 
+	for i, card := range cards {
+
+		//Code to print line to screen
+
+		fmt.Println(i, card)
+	}
 }
 
+//Function return type needs to be defined, aka String
 func newCard() string {
 	return "Five of Diamonds"
 }
