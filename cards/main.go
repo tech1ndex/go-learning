@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func main() {
 
 	// Long Version of Declaration
@@ -16,10 +14,7 @@ func main() {
 	cards := deck{"Ace of Diamonds", newCard()}
 	cards = append(cards, "Six of Spades")
 
-	for i, card := range cards {
-		//Code to print line to screen
-		fmt.Println(i, card)
-	}
+	cards.print()
 
 }
 
