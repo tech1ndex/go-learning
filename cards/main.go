@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func main() {
 
 	// Long Version of Declaration
@@ -11,10 +13,14 @@ func main() {
 	//Note that := is only for NEW Variables, re-declaration doesnt need it
 	//card := newCard()
 
-	cards := []string{"Ace of Diamonds", newCard()}
+	cards := deck{"Ace of Diamonds", newCard()}
 	cards = append(cards, "Six of Spades")
 
-	cards.printcard()
+	for i, card := range cards {
+		//Code to print line to screen
+		fmt.Println(i, card)
+	}
+
 }
 
 //Function return type needs to be defined, aka String
