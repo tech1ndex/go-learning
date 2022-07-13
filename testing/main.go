@@ -1,10 +1,8 @@
 package main
 
-import "fmt"
+type laptopSize float64
 
-var deckSize int
-
-func main() {
-	deckSize = 52
-	fmt.Println(deckSize)
+func (this laptopSize) getSizeOfLaptop() laptopSize {
+	laptopSize := "54"
+	return this
 }
