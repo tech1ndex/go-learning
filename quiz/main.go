@@ -6,11 +6,13 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 )
 
 // Main Function that will read in answers and compare them to values in CSV file
 func main() {
 	csvFilename := flag.String("csv", "questions.csv", "a csv file in the format of 'question,answer'")
+	timeLimit := flag.Int("limit", 30, "the time limit for the quiz in seconds")
 	flag.Parse()
 
 	// Use the OS Package to attempt to open file in same directory and error if file cannot be found
@@ -27,14 +29,27 @@ func main() {
 	// Iterare through CSV file and parse lines as questions to be stored in 'questions' slice
 	questions := parseLines(lines)
 
+	// Create timer for quiz
+	timer := time.NewTimer(time.Duration(*timeLimit) * time.Second)
+
 	// Declare correct slice, iterate through questions and read answer based on user input
 	correct := 0
 	for i, qu := range questions {
 		fmt.Printf("Question #%d: %s = \n", i+1, qu.q)
-		var answer string
-		fmt.Scanf("%s\n", &answer)
-		if answer == qu.a {
-			correct++
+		answerCh := make(chan string)
+		go func() {
+			var answer string
+			fmt.Scanf("%s\n", &answer)
+			answerCh <- answer
+		}()
+		select {
+		case <-timer.C:
+			fmt.Printf("\nYou scored %d out of %d.\n", correct, len(questions))
+			return
+		case answer := <-answerCh:
+			if answer == qu.a {
+				correct++
+			}
 		}
 	}
 	fmt.Printf("You scored %d out of %d.\n", correct, len(questions))
