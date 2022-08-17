@@ -25,7 +25,7 @@ func main() {
 	for i, qu := range questions {
 		fmt.Printf("Question #%d: %s = \n", i+1, qu.q)
 		var answer string
-		fmt.Printf("%s\n", &answer)
+		fmt.Println("%s\n", &answer)
 		if answer == qu.a {
 			fmt.Println("Correct!")
 		}
