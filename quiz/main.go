@@ -22,14 +22,16 @@ func main() {
 	}
 	questions := parseLines(lines)
 
+	correct := 0
 	for i, qu := range questions {
 		fmt.Printf("Question #%d: %s = \n", i+1, qu.q)
 		var answer string
-		fmt.Println("%s\n", &answer)
+		fmt.Scanf("%s\n", &answer)
 		if answer == qu.a {
-			fmt.Println("Correct!")
+			correct++
 		}
 	}
+	fmt.Printf("You scored %d out of %d.\n, correct, len(questions)")
 }
 
 func parseLines(lines [][]string) []question {
