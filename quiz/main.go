@@ -6,10 +6,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
-<<<<<<< HEAD
 	"time"
-=======
->>>>>>> refs/remotes/origin/main
 )
 
 // Main Function that will read in answers and compare them to values in CSV file
@@ -32,12 +29,9 @@ func main() {
 	// Iterare through CSV file and parse lines as questions to be stored in 'questions' slice
 	questions := parseLines(lines)
 
-<<<<<<< HEAD
 	// Create timer for quiz
 	timer := time.NewTimer(time.Duration(*timeLimit) * time.Second)
 
-=======
->>>>>>> refs/remotes/origin/main
 	// Declare correct slice, iterate through questions and read answer based on user input
 	correct := 0
 	for i, qu := range questions {
