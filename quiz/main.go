@@ -34,6 +34,9 @@ func main() {
 
 	// Declare correct slice, iterate through questions and read answer based on user input
 	correct := 0
+
+	// Main loop of asking questions in order
+questionloop:
 	for i, qu := range questions {
 		fmt.Printf("Question #%d: %s = \n", i+1, qu.q)
 		answerCh := make(chan string)
@@ -44,8 +47,8 @@ func main() {
 		}()
 		select {
 		case <-timer.C:
-			fmt.Printf("\nYou scored %d out of %d.\n", correct, len(questions))
-			return
+			fmt.Println()
+			break questionloop
 		case answer := <-answerCh:
 			if answer == qu.a {
 				correct++
