@@ -21,9 +21,9 @@ func main() {
 		data := TodoPageData{
 			PageTitle: "My TODO list",
 			Todos: []Todo{
-				{Title: "Task 1", Done: false},
-				{Title: "Task 2", Done: true},
-				{Title: "Task 3", Done: true},
+				{Title: "Build WFE for Quiz", Done: false},
+				{Title: "Create Quiz Application", Done: true},
+				{Title: "Create Web application", Done: false},
 			},
 		}
 		tmpl.Execute(w, data)
