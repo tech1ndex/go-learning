@@ -11,7 +11,7 @@ type Quiz struct {
 }
 
 func main() {
-	tmpl := template.Must(template.ParseFiles("template.html"))
+	tmpl := template.Must(template.ParseFiles("index.html"))
 
 	//Add code to serve CSS
 	http.Handle("/static/",
