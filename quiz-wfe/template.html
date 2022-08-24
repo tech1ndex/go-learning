@@ -1,221 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>{{.QuizName}}</title>
-<style>
-    body {
-    background-color: lightblue;
-    font-family: Helvetica;
-    }
-    
-    #main {
-    width: 80%;
-    max-width: 950px;
-    border: 1px gray solid;
-    margin: auto;
-    padding: 10px;
-    background-color: white;
-    border-radius: 10px;
-    }
-    
-    #header {
-    margin-top: 0;
-    border: 2px solid black;
-    padding: 5px;
-    height: 250px;
-    background: beige;
-    background-image: url("pic.jpg");
-    color: white;
-    }
-    
-    label {
-    display: block;
-    }
-    
-    input {
-    width: 30px;
-    margin-left: 20px;
-    }
-    
-    button {
-    width: 100px;
-    margin-top: 20px;
-    }
-    
-    </style>
-    
-    </head>
-    <body>
-    <div id="main"><!-- open main div -->
-    <div id="header"><!-- open header div -->
-    <h1>{{.QuizName}}</h1>
-    </div><!-- close header div -->
-    
-    <form id="form1">
-    
-    <h4>1. Every employee of your company has a Google account. Your operational team needs to manage a large number of instances on Compute Engine. Each member of this team needs only administrative access to the servers. Your security team wants to ensure that the deployment of credentials is operationally efficient and must be able to determine who accessed a given instance. What should you do?</h4>
-    <label for="a1_1"><input type="radio" name="a1" value="0" id="a1_1" />A. Generate a new SSH key pair. Give the private key to each member of your team. Configure the public key in the metadata of each instance.
-    </label>
-    <label for="a1_2"><input type="radio" name="a1" value="0" id="a1_2" />B. Ask each member of the team to generate a new SSH key pair and to send you their public key. Use a configuration management tool to deploy those keys on each instance.</label>
-    <label for="a1_3"><input type="radio" name="a1" value="5" id="a1_3" />C. Ask each member of the team to generate a new SSH key pair and to add the public key to their Google account. Grant the <i>compute.osAdminLogin</i> role to the Google group corresponding to this team.</label>
-    <label for="a1_4"><input type="radio" name="a1"  value="0" id="a1_4" />D. Generate a new SSH key pair. Give the private key to each member of your team. Configure the public key as a project-wide public SSH key in your Cloud Platform project and allow project-wide public SSH keys on each instance.</label>
-    
-    <h4>2. You want to select and configure a cost-effective solution for relational data on Google Cloud Platform. You are working with a small set of operational data in one geographic location. You need to support point-in-time recovery. What should you do?</h4>
-    <label for="a2_1"><input type="radio" name="a2" value="5" id="a2_1" />A. Select Cloud SQL (MySQL). Verify that the enable binary logging option is selected.</label>
-    <label for="a2_2"><input type="radio" name="a2" value="0" id="a2_2" />B. Select Cloud SQL (MySQL). Select the create failover replicas option.</label>
-    <label for="a2_3"><input type="radio" name="a2" value="0" id="a2_3" />C. Select Cloud Spanner. Set up your instance with 2 nodes.</label>
-    <label for="a2_4"><input type="radio" name="a2"  value="0" id="a2_4" />D. Select Cloud Spanner. Set up your instance as multi-regional.</label>
-    
-    <h4>3. You have an application that looks for its licensing server on the IP 10.0.3.21. You need to deploy the licensing server on Compute Engine. You do not want to change the configuration of the application and want the application to be able to reach the licensing server. What should you do?</h4>
-    <label for="a3_1"><input type="radio" name="a3" value="5" id="a3_1" />A. Reserve the IP 10.0.3.21 as a static internal IP address using gcloud and assign it to the licensing server.</label>
-    <label for="a3_2"><input type="radio" name="a3" value="0" id="a3_2" />B. Reserve the IP 10.0.3.21 as a static public IP address using gcloud and assign it to the licensing server.</label>
-    <label for="a3_3"><input type="radio" name="a3" value="0" id="a3_3" />C. Use the IP 10.0.3.21 as a custom ephemeral IP address and assign it to the licensing server.</label>
-    <label for="a3_4"><input type="radio" name="a3"  value="0" id="a3_4" />D. Start the licensing server with an automatic ephemeral IP address, and then promote it to a static internal IP address.</label>
-    
-    <h4>4. You are operating a Google Kubernetes Engine (GKE) cluster for your company where different teams can run non-production workloads. Your Machine Learning
-    (ML) team needs access to Nvidia Tesla P100 GPUs to train their models. You want to minimize effort and cost. What should you do?</h4>
-    <label for="a4_1"><input type="radio" name="a4" value="0" id="a4_1" />A. Ask your ML team to add the <i>accelerator: gpu</i> annotation to their pod specification.</label>
-    <label for="a4_2"><input type="radio" name="a4" value="0" id="a4_2" />B. Recreate all the nodes of the GKE cluster to enable GPUs on all of them.
-    </label>
-    <label for="a4_3"><input type="radio" name="a4" value="0" id="a4_3" />C. Create your own Kubernetes cluster on top of Compute Engine with nodes that have GPUs. Dedicate this cluster to your ML team.</label>
-    <label for="a4_4"><input type="radio" name="a4"  value="5" id="a4_4" />D. Add a new, GPU-enabled, node pool to the GKE cluster. Ask your ML team to add the cloud.google.com/gke -accelerator: nvidia-tesla-p100 nodeSelector to their pod specification.</label>
-    
-    <h4>5. You have a large 5-TB AVRO file stored in a Cloud Storage bucket. Your analysts are proficient only in SQL and need access to the data stored in this file. You want to find a cost-effective way to complete their request as soon as possible. What should you do?</h4>
-    <label for="a5_1"><input type="radio" name="a5" value="0" id="a5_1" />A. Load data in Cloud Datastore and run a SQL query against it.</label>
-    <label for="a5_2"><input type="radio" name="a5" value="0" id="a5_2" />B. Create a BigQuery table and load data in BigQuery. Run a SQL query on this table and drop this table after you complete your request.</label>
-    <label for="a5_3"><input type="radio" name="a5" value="5" id="a5_3" />C. Create external tables in BigQuery that point to Cloud Storage buckets and run a SQL query on these external tables to complete your request.</label>
-    <label for="a5_4"><input type="radio" name="a5"  value="0" id="a5_4" />D. Create a Hadoop cluster and copy the AVRO file to NDFS by compressing it. Load the file in a hive table and provide access to your analysts so that they can run SQL queries.</label>
-    
-    <h4>6. You are building a product on top of Google Kubernetes Engine (GKE). You have a single GKE cluster. For each of your customers, a Pod is running in that cluster, and your customers can run arbitrary code inside their Pod. You want to maximize the isolation between your customers' Pods. What should you do?</h4>
-    <label for="a6_1"><input type="radio" name="a6" value="0" id="a6_1" />A. Use Binary Authorization and whitelist only the container images used by your customers' Pods.</label>
-    <label for="a6_2"><input type="radio" name="a6" value="0" id="a6_2" />B. Use the Container Analysis API to detect vulnerabilities in the containers used by your customers' Pods.</label>
-    <label for="a6_3"><input type="radio" name="a6" value="5" id="a6_3" />C. Create a GKE node pool with a sandbox type configured to gvisor. Add the parameter runtimeClassName: gvisor to the specification of your customers' Pods.</label>
-    <label for="a6_4"><input type="radio" name="a6"  value="0" id="a6_4" />D. Use the cos_containerd image for your GKE nodes. Add a nodeSelector with the value cloud.google.com/gke-os-distribution: cos_containerd to the specification of your customers' Pods.</label>
-    
-    <h4>7. Your company set up a complex organizational structure on Google Cloud. The structure includes hundreds of folders and projects. Only a few team members should be able to view the hierarchical structure. You need to assign minimum permissions to these team members, and you want to follow Google-recommended practices. What should you do?</h4>
-    <label for="a7_1"><input type="radio" name="a7" value="0" id="a7_1" />A. Add the users to roles/browser role.</label>
-    <label for="a7_2"><input type="radio" name="a7" value="0" id="a7_2" />B. Add the users to roles/iam.roleViewer role.</label>
-    <label for="a7_3"><input type="radio" name="a7" value="5" id="a7_3" />C. Add the users to a group, and add this group to roles/browser.</label>
-    <label for="a7_4"><input type="radio" name="a7"  value="0" id="a7_4" />D. Add the users to a group, and add this group to roles/iam.roleViewer role.</label>
-    
-    <h4>8. Your company has a large quantity of unstructured data in different file formats. You want to perform ETL transformations on the data. You need to make the data accessible on Google Cloud so it can be processed by a Dataflow job. What should you do?</h4>
-    <label for="a8_1"><input type="radio" name="a8" value="0" id="a8_1" />A. Upload the data to BigQuery using the bq command line tool.</label>
-    <label for="a8_2"><input type="radio" name="a8" value="5" id="a8_2" />B. Upload the data to Cloud Storage using the gsutil command line tool.</label>
-    <label for="a8_3"><input type="radio" name="a8" value="0" id="a8_3" />C. Upload the data into Cloud SQL using the import function in the console.</label>
-    <label for="a8_4"><input type="radio" name="a8"  value="0" id="a8_4" />D. Upload the data into Cloud Spanner using the import function in the console.</label>
-    
-    <h4>9. You have an application that receives SSL-encrypted TCP traffic on port 443. Clients for this application are located all over the world. You want to minimize latency for the clients. Which load balancing option should you use?</h4>
-    <label for="a9_1"><input type="radio" name="a9" value="0" id="a9_1" />A. Network Load Balancer</label>
-    <label for="a9_2"><input type="radio" name="a9" value="0" id="a9_2" />B. HTTPS Load Balancer</label>
-    <label for="a9_3"><input type="radio" name="a9" value="5" id="a9_3" />C. SSL Proxy Load Balancer</label>
-    <label for="a9_4"><input type="radio" name="a9"  value="0" id="a9_4" />D. Internal TCP/UDP Load Balancer. Add a firewall rule allowing ingress traffic from 0.0.0.0/0 on the target instances.</label>
-    
-    <h4>10. Your company runs one batch process in an on-premises server that takes around 30 hours to complete. The task runs monthly, can be performed offline, and must be restarted if interrupted. You want to migrate this workload to the cloud while minimizing cost. What should you do?</h4>
-    <label for="a10_1"><input type="radio" name="a10" value="5" id="a10_1" />A. Migrate the workload to a Compute Engine VM. Start and stop the instance as needed.</label>
-    <label for="a10_2"><input type="radio" name="a10" value="0" id="a10_2" />B. Migrate the workload to a Compute Engine Preemptible VM.</label>
-    <label for="a10_3"><input type="radio" name="a10" value="0" id="a10_3" />C. Migrate the workload to a Google Kubernetes Engine cluster with Preemptible nodes.</label>
-    <label for="a10_4"><input type="radio" name="a10"  value="0" id="a10_4" />D. Create an Instance Template with Preemptible VMs On. Create a Managed Instance Group from the template and adjust Target CPU Utilization. Migrate the workload.</label>
-    
-    <h4>11. The core business of your company is to rent out construction equipment at large scale. All the equipment that is being rented out has been equipped with multiple sensors that send event information every few seconds. These signals can vary from engine status, distance traveled, fuel level, and more. Customers are billed based on the consumption monitored by these sensors. You expect high throughput, up to thousands of events per hour per device, and need to retrieve consistent data based on the time of the event. Storing and retrieving individual signals should be atomic. What should you do?</h4>
-    <label for="a11_1"><input type="radio" name="a11" value="0" id="a11_1" />A. Create a file in Cloud Storage per device and append new data to that file.</label>
-    <label for="a11_2"><input type="radio" name="a11" value="5" id="a11_2" />B. Ingest the data into Cloud Bigtable. Create a row key based on the event timestamp.</label>
-    <label for="a11_3"><input type="radio" name="a11" value="0" id="a11_3" />C. Create a file in Cloud Filestore per device and append new data to that file.</label>
-    <label for="a11_4"><input type="radio" name="a11"  value="0" id="a11_4" />D. Ingest the data into Datastore. Store data in an entity group based on the device.</label>
-    
-    <h4>12. Your company has workloads running on Compute Engine and on-premises. The Google Cloud Virtual Private Cloud (VPC) is connected to your WAN over a Virtual Private Network (VPN). You need to deploy a new Compute Engine instance and ensure that no public Internet traffic can be routed to it. What should you do?</h4>
-    <label for="a12_1"><input type="radio" name="a12" value="5" id="a12_1" />A. Create the instance without a public IP address.</label>
-    <label for="a12_2"><input type="radio" name="a12" value="0" id="a12_2" />B. Create the instance with Private Google Access enabled.</label>
-    <label for="a12_3"><input type="radio" name="a12" value="0" id="a12_3" />C. Create a deny-all egress firewall rule on the VPC network.</label>
-    <label for="a12_4"><input type="radio" name="a12"  value="0" id="a12_4" />D. Create a route on the VPC to route all traffic to the instance over the VPN tunnel.</label>
-    
-    <h4>13. Your company runs its Linux workloads on Compute Engine instances. Your company will be working with a new operations partner that does not use Google Accounts. You need to grant access to the instances to your operations partner so they can maintain the installed tooling. What should you do?</h4>
-    <label for="a13_1"><input type="radio" name="a13" value="5" id="a13_1" />A. Enable Cloud IAP for the Compute Engine instances, and add the operations partner as a Cloud IAP Tunnel User.</label>
-    <label for="a13_2"><input type="radio" name="a13" value="0" id="a13_2" />B. Tag all the instances with the same network tag. Create a firewall rule in the VPC to grant TCP access on port 22 for traffic from the operations partner to instances with the network tag.</label>
-    <label for="a13_3"><input type="radio" name="a13" value="0" id="a13_3" />C. Set up Cloud VPN between your Google Cloud VPC and the internal network of the operations partner.</label>
-    <label for="a13_4"><input type="radio" name="a13"  value="0" id="a13_4" />D. Ask the operations partner to generate SSH key pairs, and add the public keys to the VM instances.</label>
-    
-    <h4>14. You are running a data warehouse on BigQuery. A partner company is offering a recommendation engine based on the data in your data warehouse. The partner company is also running their application on Google Cloud. They manage the resources in their own project, but they need access to the BigQuery dataset in your project. You want to provide the partner company with access to the dataset. What should you do?</h4>
-    <label for="a14_1"><input type="radio" name="a14" value="0" id="a14_1" />A. Create a Service Account in your own project, and grant this Service Account access to BigQuery in your project.</label>
-    <label for="a14_2"><input type="radio" name="a14" value="0" id="a14_2" />B. Create a Service Account in your own project, and ask the partner to grant this Service Account access to BigQuery in their project.</label>
-    <label for="a14_3"><input type="radio" name="a14" value="0" id="a14_3" />C. Ask the partner to create a Service Account in their project, and have them give the Service Account access to BigQuery in their project.</label>
-    <label for="a14_4"><input type="radio" name="a14"  value="5" id="a14_4" />D. Ask the partner to create a Service Account in their project, and grant their Service Account access to the BigQuery dataset in your project.</label>
-    
-    <h4>15. Your company developed a mobile game that is deployed on Google Cloud. Gamers are connecting to the game with their personal phones over the Internet. The game sends UDP packets to update the servers about the gamers' actions while they are playing in multiplayer mode. Your game backend can scale over multiple virtual machines (VMs), and you want to expose the VMs over a single IP address. What should you do?</h4>
-    <label for="a15_1"><input type="radio" name="a15" value="0" id="a15_1" />A. Configure an SSL Proxy load balancer in front of the application servers.</label>
-    <label for="a15_2"><input type="radio" name="a15" value="0" id="a15_2" />B. Configure an Internal UDP load balancer in front of the application servers.</label>
-    <label for="a15_3"><input type="radio" name="a15" value="0" id="a15_3" />C. Configure an External HTTP(s) load balancer in front of the application servers.</label>
-    <label for="a15_4"><input type="radio" name="a15"  value="5" id="a15_4" />D. Configure an External Network load balancer in front of the application servers.</label>
-    
-    <h4>16. You received a JSON file that contained a private key of a Service Account in order to get access to several resources in a Google Cloud project. You downloaded and installed the Cloud SDK and want to use this private key for authentication and authorization when performing gcloud commands. What should you do?</h4>
-    <label for="a16_1"><input type="radio" name="a16" value="0" id="a16_1" />A. Use the command gcloud auth login and point it to the private key.</label>
-    <label for="a16_2"><input type="radio" name="a16" value="5" id="a16_2" />B. Use the command gcloud auth activate-service-account and point it to the private key.</label>
-    <label for="a16_3"><input type="radio" name="a16" value="0" id="a16_3" />C. Place the private key file in the installation directory of the Cloud SDK and rename it to <i>credentials.json</i>.</label>
-    <label for="a16_4"><input type="radio" name="a16"  value="0" id="a16_4" />D. Place the private key file in your home directory and rename it to <i>GOOGLE_APPLICATION_CREDENTIALS</i>.</label>
-    
-    <h4>17. You are developing a financial trading application that will be used globally. Data is stored and queried using a relational structure, and clients from all over the world should get the exact identical state of the data. The application will be deployed in multiple regions to provide the lowest latency to end users. You need to select a storage option for the application data while minimizing latency. What should you do?</h4>
-    <label for="a17_1"><input type="radio" name="a17" value="0" id="a17_1" />A. Use Cloud Bigtable for data storage.</label>
-    <label for="a17_2"><input type="radio" name="a17" value="0" id="a17_2" />B. Use Cloud SQL for data storage.</label>
-    <label for="a17_3"><input type="radio" name="a17" value="5" id="a17_3" />C. Use Cloud Spanner for data storage.</label>
-    <label for="a17_4"><input type="radio" name="a17"  value="0" id="a17_4" />D. Use Firestore for data storage.</label>
-    
-    <h4>18. You are about to deploy a new Enterprise Resource Planning (ERP) system on Google Cloud. The application holds the full database in-memory for fast data access, and you need to configure the most appropriate resources on Google Cloud for this application. What should you do?</h4>
-    <label for="a18_1"><input type="radio" name="a18" value="0" id="a18_1" />A. Provision preemptible Compute Engine instances.</label>
-    <label for="a18_2"><input type="radio" name="a18" value="0" id="a18_2" />B. Provision Compute Engine instances with GPUs attached.</label>
-    <label for="a18_3"><input type="radio" name="a18" value="0" id="a18_3" />C. Provision Compute Engine instances with local SSDs attached.</label>
-    <label for="a18_4"><input type="radio" name="a18"  value="5" id="a18_4" />D. Provision Compute Engine instances with M1 machine type.</label>
-    
-    <h4>19. You have developed an application that consists of multiple microservices, with each microservice packaged in its own Docker container image. You want to deploy the entire application on Google Kubernetes Engine so that each microservice can be scaled individually. What should you do?</h4>
-    <label for="a19_1"><input type="radio" name="a19" value="0" id="a19_1" />A. Create and deploy a Custom Resource Definition per microservice.</label>
-    <label for="a19_2"><input type="radio" name="a19" value="0" id="a19_2" />B. Create and deploy a Docker Compose File.</label>
-    <label for="a19_3"><input type="radio" name="a19" value="0" id="a19_3" />C. Create and deploy a Job per microservice.</label>
-    <label for="a19_4"><input type="radio" name="a19"  value="5" id="a19_4" />D. Create and deploy a Deployment per microservice.</label>
-    
-    <h4>20. You are managing a project for the Business Intelligence (BI) department in your company. A data pipeline ingests data into BigQuery via streaming. You want the users in the BI department to be able to run the custom SQL queries against the latest data in BigQuery. What should you do?</h4>
-    <label for="a20_1"><input type="radio" name="a20" value="0" id="a20_1" />A. Create a Data Studio dashboard that uses the related BigQuery tables as a source and give the BI team view access to the Data Studio dashboard.</label>
-    <label for="a20_2"><input type="radio" name="a20" value="0" id="a20_2" />B. Create a Service Account for the BI team and distribute a new private key to each member of the BI team.</label>
-    <label for="a20_3"><input type="radio" name="a20" value="0" id="a20_3" />C. Use Cloud Scheduler to schedule a batch Dataflow job to copy the data from BigQuery to the BI team's internal data warehouse.</label>
-    <label for="a20_4"><input type="radio" name="a20"  value="5" id="a20_4" />D. Assign the IAM role of BigQuery User to a Google Group that contains the members of the BI team.</label>
-    
-    <button type="submit" value="Submit">Submit</button>
-    
-    <p>Your grade is: <span id="grade2">__</span></p>
-    <p id="grade2"></p>
-    
-    </form>
-    
-    </div><!-- close main div -->
-    
-    <script>
-    document.getElementById("form1").onsubmit=function() {
-           a1 = parseInt(document.querySelector('input[name = "a1"]:checked').value);
-           a2 = parseInt(document.querySelector('input[name = "a2"]:checked').value);
-           a3 = parseInt(document.querySelector('input[name = "a3"]:checked').value);
-           a4 = parseInt(document.querySelector('input[name = "a4"]:checked').value);
-           a5 = parseInt(document.querySelector('input[name = "a5"]:checked').value);
-           a6 = parseInt(document.querySelector('input[name = "a6"]:checked').value);
-           a7 = parseInt(document.querySelector('input[name = "a7"]:checked').value);
-           a8 = parseInt(document.querySelector('input[name = "a8"]:checked').value);
-           a9 = parseInt(document.querySelector('input[name = "a9"]:checked').value);
-           a10 = parseInt(document.querySelector('input[name = "a10"]:checked').value);
-           a11 = parseInt(document.querySelector('input[name = "a11"]:checked').value);
-           a12 = parseInt(document.querySelector('input[name = "a12"]:checked').value);
-           a13 = parseInt(document.querySelector('input[name = "a13"]:checked').value);
-           a14 = parseInt(document.querySelector('input[name = "a14"]:checked').value);
-           a15 = parseInt(document.querySelector('input[name = "a15"]:checked').value);
-           a16 = parseInt(document.querySelector('input[name = "a16"]:checked').value);
-           a17 = parseInt(document.querySelector('input[name = "a17"]:checked').value);
-           a18 = parseInt(document.querySelector('input[name = "a18"]:checked').value);
-           a19 = parseInt(document.querySelector('input[name = "a19"]:checked').value);
-           a20 = parseInt(document.querySelector('input[name = "a20"]:checked').value);
-    
-           result = a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 + a9 + a10 + a11 + a12 + a13 + a14 + a15 + a16 + a17 + a18 + a19 + a20;
-    
-        document.getElementById("grade2").innerHTML = result;
-    
-    return false; // required to not refresh the page; just leave this here
-    } //this ends the submit function
-    
-    </script>
-    
-    </body>
-    </html>
+    <title>{{.QuizName}}</title>
+</head>
+  <!-- QUIZ ONE -->
+  <section class="section-1" id="section-1">
+    <main>
+        <div class="text-container">
+            <h3>Pure CSS Quiz</h3>
+            <p>QUESTION 1 OF 5</p>
+            <p>What does CSS stand for?</p>
+        </div>
+        <form>
+            <div class="quiz-options">
+                <input type="radio" class="input-radio one-a jshdgdgwgdwfdfwdwjfdjwwdwdco" id="one-a" name="yes-1" required>
+                <label class="radio-label jsjwjdwjdwjdwco" for="one-a">
+                    <span class="alphabet">A</span> Cascading Style Sheets <img class="icon jdsjkefkefkefefexco" src="https://res.cloudinary.com/dvhndpbun/image/upload/v1588518387/jdsjkefkefkefefexco.svg" alt="">
+                </label>
+                <input type="radio" class="input-radio one-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="one-b" name="yes-1">
+                <label class="radio-label jsjwjdwjdwjdwin" for="one-b">
+                    <span class="alphabet">B</span> Creative Screen Styling <img class="icon jfdedgwfzexf4hjin" src="https://res.cloudinary.com/dvhndpbun/image/upload/v1588517753/jfdedgwfzexf4hjin.svg">
+                </label>
+                <input type="radio" class="input-radio one-c jshdgdgwgdwfdfwdwjfdjwwdwdin" id="one-c" name="yes-1">
+                <label class="radio-label jsjwjdwjdwjdwin" for="one-c">
+                    <span class="alphabet">C</span> Cascading Style Screen <img class="icon jfdedgwfzexf4hjin" src="https://res.cloudinary.com/dvhndpbun/image/upload/v1588517753/jfdedgwfzexf4hjin.svg">
+                </label>
+            </div>
+            <a id="btn" type="submit" onclick="window.location.href='#section-2'">Next</a>
+        </form>
+    </main>
+</section>
+<!-- QUIZ TWO -->
+<section class=" section-2" id="section-2">
+    <main>
+        <div class="text-container">
+            <h3>Pure CSS Quiz</h3>
+            <p>QUESTION 2 OF 5</p>
+            <p>To specify the transparency of an element, you can use?</p>
+        </div>
+        <form>
+            <div class="quiz-options">
+                <input type="radio" class="input-radio two-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="two-a" name="no-2" required="">
+                <label class="radio-label jsjwjdwjdwjdwin" for="two-a">
+                    <span class="alphabet">A</span> trans-parency <img class="icon jfdedgwfzexf4hjin" src="https://res.cloudinary.com/dvhndpbun/image/upload/v1588517753/jfdedgwfzexf4hjin.svg">
+                </label>
+                <input type="radio" class="input-radio two-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="two-b" name="no-2" required="">
+                <label class="radio-label jsjwjdwjdwjdwin" for="two-b">
+                    <span class="alphabet">B</span> color: 0; <img class="icon jfdedgwfzexf4hjin" src="https://res.cloudinary.com/dvhndpbun/image/upload/v1588517753/jfdedgwfzexf4hjin.svg">
+                </label>
+                <input type="radio" class="input-radio two-c jshdgdgwgdwfdfwdwjfdjwwdwdco" id="two-c" name="no-2" required="">
+                <label class="radio-label jsjwjdwjdwjdwco" for="two-c">
+                    <span class="alphabet">C</span> opacity <img class="icon jdsjkefkefkefefexco" src="https://res.cloudinary.com/dvhndpbun/image/upload/v1588518387/jdsjkefkefkefefexco.svg">
+                </label>
+            </div>
+            <a id="btn" type="submit" onclick="window.location.href='#section-3'">Next</a>
+        </form>
+    </main>
+</section>
+<!-- QUIZ THREE -->
+<section class="section-3" id="section-3">
+    <main>
+        <div class="text-container">
+            <h3>Pure CSS Quiz</h3>
+            <p>QUESTION 3 OF 5</p>
+            <p>which of these is not a category of CSS selectors?</p>
+        </div>
+        <form>
+            <div class="quiz-options">
+                <input type="radio" class="input-radio three-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="three-a" name="no-3" required="">
+                <label class="radio-label jsjwjdwjdwjdwin" for="three-a">
+                    <span class="alphabet">A</span> Pseudo-class selectors <img class="icon jfdedgwfzexf4hjin" src="https://res.cloudinary.com/dvhndpbun/image/upload/v1588517753/jfdedgwfzexf4hjin.svg">
+                </label>
+                <input type="radio" class="input-radio three-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="three-b" name="no-3" required="">
+                <label class="radio-label jsjwjdwjdwjdwin" for="three-b">
+                    <span class="alphabet">B</span> Simple selectors <img class="icon jfdedgwfzexf4hjin" src="https://res.cloudinary.com/dvhndpbun/image/upload/v1588517753/jfdedgwfzexf4hjin.svg">
+                </label>
+                <input type="radio" class="input-radio three-c jshdgdgwgdwfdfwdwjfdjwwdwdco" id="three-c" name="no-3" required="">
+                <label class="radio-label jsjwjdwjdwjdwco" for="three-c">
+                    <span class="alphabet">C</span> Layout-selector <img class="icon jdsjkefkefkefefexco" src="https://res.cloudinary.com/dvhndpbun/image/upload/v1588518387/jdsjkefkefkefefexco.svg">
+                </label>
+            </div>
+            <a id="btn" type="submit" onclick="window.location.href='#section-4'">Next</a>
+        </form>
+    </main>
+</section>
+<!-- QUIZ FOUR -->
+<section class="section-4" id="section-4">
+    <main>
+        <div class="text-container">
+            <h3>Pure CSS Quiz</h3>
+            <p>QUESTION 4 OF 5</p>
+            <p>The browser vertical scrollbar can be hidden by using which of the following property?</p>
+        </div>
+        <form>
+            <div class="quiz-options">
+                <input type="radio" class="input-radio four-a jshdgdgwgdwfdfwdwjfdjwwdwdin" id="four-a" name="no-4" required="">
+                <label class="radio-label jsjwjdwjdwjdwin" for="four-a">
+                    <span class="alphabet">A</span> scrollbar: disable; <img class="icon jfdedgwfzexf4hjin" src="https://res.cloudinary.com/dvhndpbun/image/upload/v1588517753/jfdedgwfzexf4hjin.svg">
+                </label>
+                <input type="radio" class="input-radio four-b jshdgdgwgdwfdfwdwjfdjwwdwdco" id="four-b" name="no-4" required="">
+                <label class="radio-label jsjwjdwjdwjdwco" for="four-b">
+                    <span class="alphabet">B</span> overflow-y: hidden; <img class="icon jdsjkefkefkefefexco" src="https://res.cloudinary.com/dvhndpbun/image/upload/v1588518387/jdsjkefkefkefefexco.svg">
+                </label>
+                <input type="radio" class="input-radio four-c jshdgdgwgdwfdfwdwjfdjwwdwdin" id="four-c" name="no-4" required="">
+                <label class="radio-label jsjwjdwjdwjdwin" for="four-c">
+                    <span class="alphabet">C</span> overflow-x: hidden <img class="icon jfdedgwfzexf4hjin" src="https://res.cloudinary.com/dvhndpbun/image/upload/v1588517753/jfdedgwfzexf4hjin.svg">
+                </label>
+            </div>
+            <a id="btn" type="submit" onclick="window.location.href='#section-5'">Next</a>
+        </form>
+    </main>
+</section>
+<!-- QUIZ FIVE -->
+<section class="section-5" id="section-5">
+    <main>
+        <div class="text-container">
+            <h3>Pure CSS Quiz</h3>
+            <p>QUESTION 5 OF 5</p>
+            <p>What does HTML stand for?</p>
+        </div>
+        <form>
+            <div class="quiz-options">
+                <input type="radio" class="input-radio five-a jshdgdgwgdwfdfwdwjfdjwwdwdco" id="five-a" name="yes-5" required>
+                <label class="radio-label jsjwjdwjdwjdwco" for="five-a">
+                    <span class="alphabet">A</span> Hypertext Markup Language <img class="icon jdsjkefkefkefefexco" src="https://res.cloudinary.com/dvhndpbun/image/upload/v1588518387/jdsjkefkefkefefexco.svg" alt="">
+                </label>
+                <input type="radio" class="input-radio five-b jshdgdgwgdwfdfwdwjfdjwwdwdin" id="five-b" name="yes-5">
+                <label class="radio-label jsjwjdwjdwjdwin" for="five-b">
+                    <span class="alphabet">B</span> Hypertext Transform Markup Language <img class="icon jfdedgwfzexf4hjin" src="https://res.cloudinary.com/dvhndpbun/image/upload/v1588517753/jfdedgwfzexf4hjin.svg">
+                </label>
+                <input type="radio" class="input-radio five-c jshdgdgwgdwfdfwdwjfdjwwdwdin" id="five-c" name="yes-5">
+                <label class="radio-label jsjwjdwjdwjdwin" for="five-c">
+                    <span class="alphabet">C</span> Hypertext Machine Language <img class="icon jfdedgwfzexf4hjin" src="https://res.cloudinary.com/dvhndpbun/image/upload/v1588517753/jfdedgwfzexf4hjin.svg">
+                </label>
+            </div>
+            <a id="btn" type="submit" onclick="window.location.href='#game-over'">Next</a>
+        </form>
+    </main>
+    <!-- SCORE COUNTER -->
+</section>
+<div class="score-counter">
+    <p class="score-text">CORRECT:</p>
+</div>
+<!-- GAME OVER PAGE -->
+<section id="game-over">
+    <div class="game-over-content">
+        <div class="over-text-cont">
+            <h1 data-heading="Game Over">Game Over</h1>
+            <h2>Total Score:</h2>
+            <a id="btn" type="submit" onclick="window.location.href='#refresh'">Play Again</a>
+        </div>
+    </div>
+</section>
+<!-- REFRESH PAGE SECTION -->
+<section id="refresh">
+    <div class="refresh-content">
+        <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 341.12 341.33">
+            <defs>
+                <style>
+                    .cls-1 {
+                        fill: #fff;
+                    }
+                </style>
+            </defs>
+            <title>multimedia2</title>
+            <path class="cls-1" d="M341.23,149.33V0L291.09,50.13A169.56,169.56,0,0,0,170.56,0C76.27,0,.11,76.37.11,170.67S76.27,341.33,170.56,341.33c79.47,0,146-54.4,164.91-128H291.09A127.94,127.94,0,1,1,170.56,42.67c35.31,0,67,14.72,90.13,37.86l-68.8,68.8Z" transform="translate(-0.11)" />
+        </svg>
+        <h2>Refresh/Reload this page to continue</h2>
+    </div>
+</section>
+</html>
