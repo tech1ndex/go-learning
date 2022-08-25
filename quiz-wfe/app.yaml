@@ -1,2 +1,5 @@
 runtime: go115
 env: standard
+- url: /static
+  static_dir: static/
+  expiration: '10s'
