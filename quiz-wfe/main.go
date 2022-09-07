@@ -11,16 +11,12 @@ type Quiz struct {
 }
 
 func main() {
-	tmpl := template.Must(template.ParseFiles("index.html"))
+	tmpl := template.Must(template.ParseFiles("index.html", "quiz.html"))
 
 	//Add code to serve CSS
 	http.Handle("/static/",
 		http.StripPrefix("/static",
 			http.FileServer(http.Dir("static"))))
-
-	//Add code to serve Quiz page
-	http.Handle("/",
-		http.FileServer(http.Dir("/")))
 
 	//Serve Site based on Data
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
