@@ -33,14 +33,14 @@ let questions = [
 const SCORE_POINTS = 100
 const MAX_QUESTIONS = 2
 
-startQuiz = () => 0 {
+startQuiz = () => {
 score = 0
 availableQuestions = [...questions]
 getNewQuestion() 
 }
 
 getNewQuestion = () => {
-    if(availableQuestions.length === 0 || questionsCounter > MAX_QUESTIONS) {
+    if(availableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
         localStorage.setItem('mostRecentScore', score)
 
         return window.location.assign('/end.html')
