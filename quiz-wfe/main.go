@@ -2,33 +2,55 @@ package main
 
 import (
 	"html/template"
+	"log"
 	"net/http"
+	"os"
+	"path/filepath"
 )
 
-type Quiz struct {
-	QuizName string
-	Question string
+func main() {
+	fs := http.FileServer(http.Dir("./static"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
+	http.HandleFunc("/", serveTemplate)
+
+	log.Print("Listening on :8080...")
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
-func main() {
-	tmpl := template.Must(template.ParseFiles("index.html", "quiz.html"))
+func serveTemplate(w http.ResponseWriter, r *http.Request) {
+	lp := filepath.Join("templates", "index.html")
+	fp := filepath.Join("templates", filepath.Clean(r.URL.Path))
 
-	//Add code to serve CSS
-	http.Handle("/static/",
-		http.StripPrefix("/static",
-			http.FileServer(http.Dir("static"))))
-
-	//Serve Site based on Data
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		data := Quiz{
-			QuizName: "ACE Quiz",
+	// Return a 404 if the template doesn't exist
+	info, err := os.Stat(fp)
+	if err != nil {
+		if os.IsNotExist(err) {
+			http.NotFound(w, r)
+			return
 		}
-		tmpl.Execute(w, data)
-	})
+	}
 
-	//Serve other HTML Files
+	// Return a 404 if the request is for a directory
+	if info.IsDir() {
+		http.NotFound(w, r)
+		return
+	}
 
-	http.Handle("/", http.FileServer(http.Dir("./")))
-	//Actually Listen on Port 8080
-	http.ListenAndServe(":8080", nil)
+	tmpl, err := template.ParseFiles(lp, fp)
+	if err != nil {
+		// Log the detailed error
+		log.Print(err.Error())
+		// Return a generic "Internal Server Error" message
+		http.Error(w, http.StatusText(500), 500)
+		return
+	}
+
+	err = tmpl.ExecuteTemplate(w, "index", nil)
+	if err != nil {
+		log.Print(err.Error())
+		http.Error(w, http.StatusText(500), 500)
+	}
 }
