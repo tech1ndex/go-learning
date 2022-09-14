@@ -25,6 +25,10 @@ func main() {
 		}
 		tmpl.Execute(w, data)
 	})
+
+	//Serve other HTML Files
+
+	http.Handle("/", http.FileServer(http.Dir("./")))
 	//Actually Listen on Port 8080
 	http.ListenAndServe(":8080", nil)
 }
