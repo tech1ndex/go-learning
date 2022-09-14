@@ -1,56 +1,67 @@
 package main
 
 import (
+	"embed"
 	"html/template"
-	"log"
+	"io/fs"
 	"net/http"
-	"os"
-	"path/filepath"
 )
 
-func main() {
-	fs := http.FileServer(http.Dir("./static"))
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
-	http.HandleFunc("/", serveTemplate)
+const (
+	layoutsDir   = "templates/layouts"
+	templatesDir = "templates"
+	extension    = "/*.html"
+)
 
-	log.Print("Listening on :3000...")
-	err := http.ListenAndServe(":3000", nil)
-	if err != nil {
-		log.Fatal(err)
-	}
+type Quiz struct {
+	QuizName string
+	Question string
 }
 
-func serveTemplate(w http.ResponseWriter, r *http.Request) {
-	lp := filepath.Join("templates", "layout.html")
-	fp := filepath.Join("templates", filepath.Clean(r.URL.Path))
+var (
+	//go:embed templates/* templates/layouts/*
+	files     embed.FS
+	templates map[string]*template.Template
+)
 
-	// Return a 404 if the template doesn't exist
-	info, err := os.Stat(fp)
+func LoadTemplates() error {
+	if templates == nil {
+		templates = make(map[string]*template.Template)
+	}
+	tmplFiles, err := fs.ReadDir(files, templatesDir)
 	if err != nil {
-		if os.IsNotExist(err) {
-			http.NotFound(w, r)
-			return
+		return err
+	}
+
+	for _, tmpl := range tmplFiles {
+		if tmpl.IsDir() {
+			continue
 		}
-	}
 
-	// Return a 404 if the request is for a directory
-	if info.IsDir() {
-		http.NotFound(w, r)
+		pt, err := template.ParseFS(files, templatesDir+"/"+tmpl.Name(), layoutsDir+extension)
+		if err != nil {
+			return err
+		}
+
+		templates[tmpl.Name()] = pt
+	}
+	return nil
+}
+
+const index = "index.html"
+
+func indexLoad(w http.ResponseWriter, r *http.Request) {
+	t, ok := templates[index]
+	if !ok {
+		// TODO handle error
 		return
 	}
 
-	tmpl, err := template.ParseFiles(lp, fp)
-	if err != nil {
-		// Log the detailed error
-		log.Print(err.Error())
-		// Return a generic "Internal Server Error" message
-		http.Error(w, http.StatusText(500), 500)
-		return
+	data := Quiz{
+		QuizName: "ACE Quiz",
 	}
 
-	err = tmpl.ExecuteTemplate(w, "layout", nil)
-	if err != nil {
-		log.Print(err.Error())
-		http.Error(w, http.StatusText(500), 500)
+	if err := t.Execute(w, data); err != nil {
+		// TODO handle error
 	}
 }
