@@ -9,20 +9,19 @@ import (
 )
 
 func main() {
-	//Add code to serve CSS
-	http.Handle("/static/",
-		http.StripPrefix("/static",
-			http.FileServer(http.Dir("static"))))
+	fs := http.FileServer(http.Dir("./static"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
+	http.HandleFunc("/", serveTemplate)
 
-	log.Print("Listening on :8080...")
-	err := http.ListenAndServe(":8080", nil)
+	log.Print("Listening on :3000...")
+	err := http.ListenAndServe(":3000", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
 func serveTemplate(w http.ResponseWriter, r *http.Request) {
-	lp := filepath.Join("templates", "index.html")
+	lp := filepath.Join("templates", "layout.html")
 	fp := filepath.Join("templates", filepath.Clean(r.URL.Path))
 
 	// Return a 404 if the template doesn't exist
@@ -49,7 +48,7 @@ func serveTemplate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = tmpl.ExecuteTemplate(w, "index", nil)
+	err = tmpl.ExecuteTemplate(w, "layout", nil)
 	if err != nil {
 		log.Print(err.Error())
 		http.Error(w, http.StatusText(500), 500)
