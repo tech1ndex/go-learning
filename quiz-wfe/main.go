@@ -9,9 +9,10 @@ import (
 )
 
 func main() {
-	fs := http.FileServer(http.Dir("./static"))
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
-	http.HandleFunc("/", serveTemplate)
+	//Add code to serve CSS
+	http.Handle("/static/",
+		http.StripPrefix("/static",
+			http.FileServer(http.Dir("static"))))
 
 	log.Print("Listening on :8080...")
 	err := http.ListenAndServe(":8080", nil)
