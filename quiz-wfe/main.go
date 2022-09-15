@@ -5,14 +5,15 @@ import (
 	"net/http"
 )
 
-type TodoPageData struct {
+type PageTitleData struct {
 	PageTitle string
 }
 
+// Main function to parse and serve index.html
 func main() {
 	tmpl := template.Must(template.ParseFiles("index.html"))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		data := TodoPageData{
+		data := PageTitleData{
 			PageTitle: "ACE Quiz",
 		}
 		tmpl.Execute(w, data)
