@@ -5,28 +5,22 @@ import (
 	"net/http"
 )
 
-type Todo struct {
-	Title string
-	Done  bool
-}
-
 type TodoPageData struct {
 	PageTitle string
-	Todos     []Todo
 }
 
 func main() {
 	tmpl := template.Must(template.ParseFiles("index.html"))
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		data := TodoPageData{
-			PageTitle: "My TODO list",
-			Todos: []Todo{
-				{Title: "Build WFE for Quiz", Done: false},
-				{Title: "Create Quiz Application", Done: true},
-				{Title: "Create Web application", Done: false},
-			},
+			PageTitle: "ACE Quiz",
 		}
 		tmpl.Execute(w, data)
 	})
+
+	//Serve Static CSS
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+
+	//Start Web Server on Port 8080
 	http.ListenAndServe(":8080", nil)
 }
