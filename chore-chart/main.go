@@ -20,7 +20,7 @@ func init() {
 }
 
 func main() {
-	log.Info("Starting Todolist API server")
+	log.Info("Starting Chores API server")
 	router := mux.NewRouter()
 	router.HandleFunc("/healthz", Healthz).Methods("GET")
 	http.ListenAndServe(":8000", router)
