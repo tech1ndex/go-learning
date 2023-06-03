@@ -6,7 +6,7 @@ import "fmt"
 // which is a slice of strings
 type deck []string
 
-//Create a function to create a deck of cards based on
+// Create a function to create a deck of cards based on
 // 1) Slice of CardSuits
 // 2) Slice of CardValues
 func newDeck() deck {
